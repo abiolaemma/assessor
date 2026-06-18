@@ -30,10 +30,10 @@ jobs:
         run: npm install
 
       - name: Cache node_modules
-        uses: actions/cache/save@v3
+        uses: actions/cache@v3
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
   lint:
     needs: [install]
