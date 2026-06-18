@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - main
+      - devel
       - 'feature-*'
   pull_request:
     branches:
       - main
+      - devel
 
 jobs:
   install:
@@ -78,7 +80,7 @@ jobs:
         run: npm run test
 
   build:
-    needs: [lint]
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -93,7 +95,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: node_modules
-          key: deps-${{ hashFiles('package-lock.json') }}
+          key: node-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Build project
         run: npm run build
