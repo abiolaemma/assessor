@@ -112,6 +112,8 @@ jobs:
   publish-image:
     needs: [build]
     runs-on: ubuntu-latest
+    env:
+      ECR_REPO: 767397858654.dkr.ecr.us-east-1.amazonaws.com/rdicidr
     steps:
       - uses: actions/checkout@v3
       - uses: aws-actions/configure-aws-credentials@v4
