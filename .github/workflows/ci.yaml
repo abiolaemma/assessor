@@ -54,16 +54,10 @@ jobs:
           path: codebase/rdicidr-0.1.0/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('codebase/rdicidr-0.1.0/package-lock.json') }}
 
-      - name: Install dependencies (fallback)
-        working-directory: codebase/rdicidr-0.1.0
-        run: npm ci
-
       - name: Run linter
-        working-directory: codebase/rdicidr-0.1.0
         run: npm run lint
 
       - name: Run formatter
-        working-directory: codebase/rdicidr-0.1.0
         run: npm run prettier
 
   test:
@@ -84,14 +78,9 @@ jobs:
           path: codebase/rdicidr-0.1.0/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('codebase/rdicidr-0.1.0/package-lock.json') }}
 
-      - name: Install dependencies (fallback)
-        working-directory: codebase/rdicidr-0.1.0
-        run: npm ci
-
       - name: Run tests
         env:
           CI: true
-        working-directory: codebase/rdicidr-0.1.0
         run: npm run test
 
   build:
@@ -112,23 +101,23 @@ jobs:
           path: codebase/rdicidr-0.1.0/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('codebase/rdicidr-0.1.0/package-lock.json') }}
 
-      - name: Install dependencies (fallback)
-        working-directory: codebase/rdicidr-0.1.0
-        run: npm ci
-
       - name: Build project
-        working-directory: codebase/rdicidr-0.1.0
         run: npm run build
 
-  publish-image:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: us-east-1
-          role-to-assume: <oidc-role-arn>
-      - uses: aws-actions/amazon-ecr-login@v2
-      - run: docker build -t $ECR_REPO:$GITHUB_SHA codebase/rdicidr-0.1.0
-      - run: docker push $ECR_REPO:$GITHUB_SHA
+publish-image:
+  needs: [build]
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: us-east-1
+        role-to-assume: <oidc-role-arn>
+    - uses: aws-actions/amazon-ecr-login@v2
+    - run: docker build -t $ECR_REPO:$GITHUB_SHA codebase/rdicidr-0.1.0
+    - run: docker push $ECR_REPO:$GITHUB_SHA
+
+defaults:
+  run:
+    working-directory: codebase/rdicidr-0.1.0
+
