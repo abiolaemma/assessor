@@ -5,11 +5,14 @@ on:
     branches:
       - main
       - devel
+      - stage
       - 'feature-*'
+      - 'bugfix/*'
   pull_request:
     branches:
       - main
       - devel
+      - stage
 
 jobs:
   install:
