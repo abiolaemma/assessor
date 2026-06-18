@@ -51,7 +51,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
       - name: Run linter
         run: npm run lint
@@ -75,7 +75,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
       - name: Run tests
         env:
@@ -98,7 +98,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
       - name: Build project
         run: npm run build
