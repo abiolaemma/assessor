@@ -22,17 +22,13 @@ class IPv4 {
 
   getBinnary() {
     return this.address
-      .map((octet) => {
-        return octet.toString(2).padStart(8, "0");
-      })
+      .map((octet) => octet.toString(2).padStart(8, "0"))
       .join(".");
   }
 
   getOnlyBinnary() {
     return this.address
-      .map((octet) => {
-        return octet.toString(2).padStart(8, "0");
-      })
+      .map((octet) => octet.toString(2).padStart(8, "0"))
       .join("");
   }
 
@@ -58,9 +54,7 @@ class IPv4 {
       .padStart(32, "0")
       .match(/.{1,8}/g);
 
-    const intNetWorkAddress = networkAddress.map((octet) => {
-      return parseInt(octet, 2);
-    });
+    const intNetWorkAddress = networkAddress.map((octet) => parseInt(octet, 2));
     return intNetWorkAddress.join(".");
   }
 
@@ -75,9 +69,7 @@ class IPv4 {
       .padStart(32, "0")
       .match(/.{1,8}/g);
 
-    const intFirstAddress = firstAddress.map((octet) => {
-      return parseInt(octet, 2);
-    });
+    const intFirstAddress = firstAddress.map((octet) => parseInt(octet, 2));
     return intFirstAddress.join(".");
   }
 
@@ -93,9 +85,7 @@ class IPv4 {
       .padStart(32, "0")
       .match(/.{1,8}/g);
 
-    const intLastAddress = lastAddress.map((octet) => {
-      return parseInt(octet, 2);
-    });
+    const intLastAddress = lastAddress.map((octet) => parseInt(octet, 2));
     return intLastAddress.join(".");
   }
 
@@ -111,9 +101,9 @@ class IPv4 {
       .padStart(32, "0")
       .match(/.{1,8}/g);
 
-    const intBroadcastAddress = broadcastAddress.map((octet) => {
-      return parseInt(octet, 2);
-    });
+    const intBroadcastAddress = broadcastAddress.map((octet) =>
+      parseInt(octet, 2)
+    );
     return intBroadcastAddress.join(".");
   }
 
@@ -127,9 +117,7 @@ class IPv4 {
       .padStart(32, "0")
       .match(/.{1,8}/g);
 
-    const intNetmask = netmaskOctets.map((octet) => {
-      return parseInt(octet, 2);
-    });
+    const intNetmask = netmaskOctets.map((octet) => parseInt(octet, 2));
     return intNetmask.join(".");
   }
 
@@ -177,15 +165,12 @@ class IPv4 {
         count: currIpv4.count(),
       });
       currentSubnet += currIpv4.count();
-      const nextSubnet =
-        parseInt(currIpv4.getOnlyBinnary(), 2) + currIpv4.count();
+      const nextSubnet = parseInt(currIpv4.getOnlyBinnary(), 2) + currIpv4.count();
       const strCurrentOctets = nextSubnet
         .toString(2)
         .padStart(32, "0")
         .match(/.{1,8}/g);
-      currentOctets = strCurrentOctets.map((octet) => {
-        return parseInt(octet, 2);
-      });
+      currentOctets = strCurrentOctets.map((octet) => parseInt(octet, 2));
     }
     return subnets;
   }

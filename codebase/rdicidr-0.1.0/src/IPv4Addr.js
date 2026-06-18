@@ -58,7 +58,7 @@ const IPv4Addr = (props) => {
               {index < 3 ? <span>.</span> : <span className="slash">/</span>}
             </div>
           );
-        })}{" "}
+        })}
         <Netmask
           value={ipv4.mask}
           setValid={setValidAddress}
