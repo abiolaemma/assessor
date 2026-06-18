@@ -22,7 +22,7 @@ class IPv4 {
 
   getBinnary() {
     return this.address
-      .map((octet, index) => {
+      .map((octet) => {
         return octet.toString(2).padStart(8, "0");
       })
       .join(".");
@@ -30,7 +30,7 @@ class IPv4 {
 
   getOnlyBinnary() {
     return this.address
-      .map((octet, index) => {
+      .map((octet) => {
         return octet.toString(2).padStart(8, "0");
       })
       .join("");
