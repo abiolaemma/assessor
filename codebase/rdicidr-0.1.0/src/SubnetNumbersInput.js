@@ -4,7 +4,7 @@ import "./SubnetNumbersInput.css";
 const SubnetNumbersInput = (props) => {
   const [message, setMessage] = useState("");
   const [isValid, setIsValid] = useState(
-    props.value < props.maxNumberOfSubnets
+    props.value < props.maxNumberOfSubnets,
   );
 
   const validClass = isValid ? "valid" : "invalid";
@@ -18,10 +18,7 @@ const SubnetNumbersInput = (props) => {
         value={props.value}
         onChange={(e) => {
           let change = false;
-          if (
-            e.target.value < 0 ||
-            e.target.value > props.maxNumberOfSubnets
-          ) {
+          if (e.target.value < 0 || e.target.value > props.maxNumberOfSubnets) {
             change = true;
             setIsValid(false);
             setMessage("incorrect number of subnets");
