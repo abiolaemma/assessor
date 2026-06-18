@@ -59,6 +59,7 @@ resource "aws_iam_role_policy" "ecs_task_execution_policy" {
       {
         Effect = "Allow"
         Action = [
+          "ecr:GetAuthorizationToken",
           "ecr:GetDownloadUrlForLayer",
           "ecr:BatchGetImage",
           "ecr:BatchCheckLayerAvailability",
@@ -94,6 +95,14 @@ resource "aws_ecs_task_definition" "app" {
       name      = var.app_name
       image     = var.container_image
       essential = true
+
+      portMappings = [
+        {
+          containerPort = var.container_port
+          hostPort      = var.container_port
+          protocol      = "tcp"
+        }
+      ]
 
       logConfiguration = {
         logDriver = "awslogs"
@@ -154,7 +163,7 @@ resource "aws_lb_target_group" "app" {
     unhealthy_threshold = 3
     timeout             = 5
     interval            = 30
-    matcher             = "200"
+    matcher             = "200-399"
   }
 }
 
